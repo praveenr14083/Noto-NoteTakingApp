@@ -13,7 +13,7 @@ export default function Sidebar({ onCreateNote }) {
   return (
     <aside
       className={`h-[100dvh] bg-card transition-all text-sm duration-300 pl-3 flex flex-col border-r-1 border-border gap-5 ${
-        collapsed ? "md:w-16" : "absolute md:relative w-60 md:w-80"
+        collapsed ? "max-w-12 md:max-w-16" : "absolute md:relative w-60 md:w-80"
       }`}
     >
       {/* Top Section */}
@@ -23,13 +23,13 @@ export default function Sidebar({ onCreateNote }) {
         } mt-4`}
       >
         {!collapsed && (
-          <span className="px-2 w-full flex items-center gap-2 rounded">
+          <span className="w-full flex items-center gap-2 rounded">
             <StickyNote />
             <span>Noto</span>
           </span>
         )}
         <button
-          className="py-2 px-2 mr-3 hover:bg-accent cursor-pointer flex items-center gap-2 rounded"
+          className="py-2 px-2 mr-3 md:hover:bg-accent cursor-pointer flex items-center gap-2 rounded"
           onClick={toggleSidebar}
         >
           <PanelLeft />
@@ -40,7 +40,7 @@ export default function Sidebar({ onCreateNote }) {
       <div className="mr-3">
         <button
           onClick={onCreateNote}
-          className="py-2 px-2 w-full hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded"
+          className="md:py-2 md:px-2 w-full md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded"
         >
           <Plus />
           {!collapsed && "Create New"}
