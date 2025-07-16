@@ -29,7 +29,7 @@ export default function Navbar() {
             {/* Search bar */}
             <Input
               type="search"
-              placeholder="Search"
+              placeholder="Search Note"
               className="shadow-none rounded"
               value={input}
               onChange={(e) => setInput(e.target.value)}

@@ -20,7 +20,7 @@ export default function NotesList() {
     : notes;
 
   return (
-    <div className="flex flex-wrap gap-10 justify-center">
+    <div className="flex flex-wrap gap-4 md:gap-6 lg:gap-10 justify-center">
       {filteredNotes.length === 0 ? (
         <p className="col-span-full text-center text-muted-foreground">
           No matching notes.
