@@ -8,6 +8,8 @@ const useNoteStore = create((set, get) => ({
   loading: false,
 
   selectedNoteId: null,
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query }),
 
   setSelectedNoteId: (id) => set({ selectedNoteId: id }),
   // ✅ Fetch all notes

@@ -1,13 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import useNoteStore from "@/stores/noteStore";
 
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
+  const [input, setInput] = useState("");
+  const setSearchQuery = useNoteStore((state) => state.setSearchQuery);
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      setSearchQuery(input);
+    }, 300); // debounce search
+
+    return () => clearTimeout(delayDebounce);
+  }, [input, setSearchQuery]);
   return (
     // Main Section
     <nav className="bg-card border-b-1 border-border">
@@ -20,6 +31,8 @@ export default function Navbar() {
               type="search"
               placeholder="Search"
               className="shadow-none rounded"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
             />
           </div>
           <div>
