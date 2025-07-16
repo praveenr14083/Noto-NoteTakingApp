@@ -62,7 +62,9 @@ export default function Sidebar({ onCreateNote }) {
       <div className="mr-3">
         <button
           onClick={() => setSelectedNoteId(null)}
-          className="md:py-2 md:px-2 w-full md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded"
+          className={`md:py-2 md:px-2 w-full ${
+            selectedNoteId || "bg-accent"
+          } md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded`}
         >
           <Eye />
           {!collapsed && "Show All Notes"}
