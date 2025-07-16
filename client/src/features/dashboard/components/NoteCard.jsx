@@ -1,9 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Trash2, Star, Save as SaveIcon } from "lucide-react";
 import useNoteStore from "@/stores/noteStore"; // import your Zustand store
+
+const COLORS = {
+  yellow: "bg-yellow-500",
+  blue: "bg-blue-500",
+  green: "bg-green-500",
+  red: "bg-red-500",
+  violet: "bg-violet-500",
+};
+
+const COLOR_KEYS = Object.keys(COLORS);
 
 export default function NoteCard({ note }) {
   const { updateNote, deleteNote, toggleFavourite } = useNoteStore();
@@ -11,6 +21,14 @@ export default function NoteCard({ note }) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(note.title || "Untitled");
   const [description, setDescription] = useState(note.description || "");
+
+  const colorKey = useMemo(() => {
+    const hash = [...note._id].reduce(
+      (acc, char) => acc + char.charCodeAt(0),
+      0
+    );
+    return COLOR_KEYS[hash % COLOR_KEYS.length];
+  }, [note._id]);
 
   const handleSave = async () => {
     setIsEditing(false);
@@ -29,7 +47,9 @@ export default function NoteCard({ note }) {
   };
 
   return (
-    <div className="min-h-70 bg-accent p-5 rounded-4xl flex flex-col justify-between border border-border">
+    <div
+      className={`min-h-65 w-full text-white md:min-w-65 md:max-w-65 ${COLORS[colorKey]} p-5 rounded-3xl flex flex-col justify-between border border-border`}
+    >
       <div className="space-y-4">
         {/* Header with title and favorite */}
         <div className="flex justify-between items-center gap-2">
@@ -49,7 +69,7 @@ export default function NoteCard({ note }) {
           )}
 
           <Button
-            className="bg-black text-yellow-500 p-2 rounded-full hover:bg-black cursor-pointer"
+            className="bg-black text-yellow-300 p-2 rounded-full hover:bg-black cursor-pointer"
             size="icon"
             onClick={handleToggleFavourite}
           >
@@ -66,11 +86,11 @@ export default function NoteCard({ note }) {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={4}
-            className="w-full text-muted-foreground bg-transparent border border-border rounded-md p-2 focus:outline-none"
+            className="w-full  bg-transparent border border-border rounded-md p-2 focus:outline-none"
           />
         ) : (
           <p
-            className="line-clamp-5 text-muted-foreground cursor-pointer"
+            className="line-clamp-5  cursor-pointer"
             onClick={() => setIsEditing(true)}
           >
             {description || "Enter Description"}
@@ -80,7 +100,7 @@ export default function NoteCard({ note }) {
 
       {/* Footer with date and actions */}
       <div className="flex justify-between items-center pt-4">
-        <p className="text-xs text-muted-foreground">{note.date}</p>
+        <p className="text-sm font-semibold">{note.date}</p>
 
         <div className="space-x-2">
           {isEditing && (

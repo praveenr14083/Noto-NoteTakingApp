@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, StickyNote, PanelLeft, Eye } from "lucide-react";
+import { Plus, StickyNote, PanelLeft, Eye, Star } from "lucide-react";
 import useNoteStore from "@/stores/noteStore"; // ✅ import Zustand store
 
 export default function Sidebar({ onCreateNote }) {
@@ -41,7 +41,9 @@ export default function Sidebar({ onCreateNote }) {
       <div className="mr-3">
         <button
           onClick={onCreateNote}
-          className="md:py-2 md:px-2 w-full md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded"
+          className={`md:py-2 md:px-2 w-full bg-blue-500 text-white md:hover:bg-blue-500/70 cursor-pointer flex items-center gap-2 truncate ${
+            collapsed ? "rounded-full" : "rounded"
+          }`}
         >
           <Plus />
           {!collapsed && "Create New"}
@@ -69,21 +71,30 @@ export default function Sidebar({ onCreateNote }) {
 
       {/* Notes List from Zustand */}
       <div className="flex-1 overflow-y-auto">
-        <ul className="mr-3">
-          {notes.map((note) => (
-            <li
-              key={note._id}
-              onClick={() => setSelectedNoteId(note._id)}
-              className={`py-2 px-2 cursor-pointer flex items-center gap-2 truncate rounded mb-2 last:mb-0 ${
-                selectedNoteId === note._id && !collapsed
-                  ? "bg-accent"
-                  : "hover:bg-accent"
-              }`}
-            >
-              {!collapsed && <span>{note.title || "Untitled"}</span>}
-            </li>
-          ))}
-        </ul>
+        {!collapsed && (
+          <ul className="mr-3">
+            {notes.map((note) => (
+              <li
+                key={note._id}
+                onClick={() => setSelectedNoteId(note._id)}
+                className={`py-2 px-2 cursor-pointer flex justify-between items-center gap-2 truncate rounded mb-2 last:mb-0 ${
+                  selectedNoteId === note._id && !collapsed
+                    ? "bg-accent"
+                    : "hover:bg-accent"
+                }`}
+              >
+                {!collapsed && <span>{note.title || "Untitled"}</span>}
+
+                {note.favourite && (
+                  <Star
+                    className="text-yellow-300 w-4 h-4"
+                    fill={note.favourite ? "yellow" : "none"}
+                  />
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </aside>
   );
