@@ -7,6 +7,9 @@ const useNoteStore = create((set, get) => ({
   notes: [],
   loading: false,
 
+  selectedNoteId: null,
+
+  setSelectedNoteId: (id) => set({ selectedNoteId: id }),
   // ✅ Fetch all notes
   fetchNotes: async () => {
     try {
@@ -22,10 +25,16 @@ const useNoteStore = create((set, get) => ({
   // ✅ Create new note
   createNote: async () => {
     try {
+      const formattedDate = new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+      }); // e.g., "July 17, 2025"
+
       const newNote = {
         title: "Untitled",
         description: "",
-        date: new Date().toISOString().split("T")[0],
+        date: formattedDate,
         favourite: false,
       };
       const res = await axios.post(API_URL, newNote);
