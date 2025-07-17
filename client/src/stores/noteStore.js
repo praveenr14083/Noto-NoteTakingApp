@@ -21,6 +21,7 @@ const useNoteStore = create((set, get) => ({
     } catch (error) {
       console.error("Error fetching notes:", error);
       set({ loading: false });
+      throw error;
     }
   },
 
