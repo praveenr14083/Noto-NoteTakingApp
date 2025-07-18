@@ -42,8 +42,8 @@ export default function Sidebar({ onCreateNote }) {
       <div className="mr-3">
         <button
           onClick={onCreateNote}
-          className={`md:py-2 md:px-2 w-full bg-blue-500 text-white md:hover:bg-blue-500/70 cursor-pointer flex items-center gap-2 truncate ${
-            collapsed ? "rounded-full" : "rounded"
+          className={`md:py-2 md:px-2 w-full text-blue-500 md:bg-blue-500 md:text-white md:hover:bg-blue-500/70 cursor-pointer flex items-center gap-2 truncate ${
+            collapsed ? "rounded-full" : "rounded bg-blue-500 p-2 text-white"
           }`}
         >
           <Plus />
@@ -54,7 +54,9 @@ export default function Sidebar({ onCreateNote }) {
       {/* Notes Heading */}
       {!collapsed && (
         <div>
-          <h2 className="ml-2 text-gray-400 text-xs uppercase">Notes</h2>
+          <h2 className="ml-2 text-muted-foreground text-xs uppercase">
+            Notes
+          </h2>
         </div>
       )}
 
@@ -64,8 +66,10 @@ export default function Sidebar({ onCreateNote }) {
         <button
           onClick={() => setSelectedNoteId(null)}
           className={`md:py-2 md:px-2 w-full ${
-            selectedNoteId || "bg-accent"
-          } md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded`}
+            selectedNoteId || "text-muted-foreground md:text-white md:bg-accent"
+          } md:hover:bg-accent cursor-pointer flex items-center gap-2 truncate rounded ${
+            collapsed ? " " : "rounded p-2 bg-accent"
+          }`}
         >
           <Eye />
           {!collapsed && "Show All Notes"}
