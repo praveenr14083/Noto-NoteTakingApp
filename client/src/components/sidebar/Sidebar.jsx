@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Plus, StickyNote, PanelLeft, Eye, Star } from "lucide-react";
 import useNoteStore from "@/stores/noteStore"; // ✅ import Zustand store
+import Image from "next/image";
 
 export default function Sidebar({ onCreateNote }) {
   const [collapsed, setCollapsed] = useState(true);
@@ -25,7 +26,7 @@ export default function Sidebar({ onCreateNote }) {
       >
         {!collapsed && (
           <span className="w-full flex items-center gap-2 rounded">
-            <StickyNote />
+            <Image src="/noto.svg" alt="Noto Logo" width={28} height={28} />
             <span>Noto</span>
           </span>
         )}
