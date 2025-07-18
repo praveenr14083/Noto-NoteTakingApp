@@ -1,6 +1,5 @@
 // server.js
 require("dotenv").config();
-console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -13,6 +12,7 @@ mongoose
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+const MONGO_URI = process.env.MONGO_URI || "mongodb://localhost:27017/notesDB";
 
 // Middleware
 app.use(cors());
@@ -20,7 +20,7 @@ app.use(express.json());
 
 // MongoDB connection
 mongoose
-  .connect(process.env.MONGO_URI, {
+  .connect(MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
